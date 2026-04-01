@@ -1,26 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg-void: #111111;
+  --bg-surface: #1a1a1a;
+  --gold: #d4a84b;
+  --gold-dim: #c49850;
+  --gold-ghost: #a08050;
+  --text-high: #f0e8d8;
+  --text-mid: #d0c0a0;
+  --text-low: #b0a080;
+  --text-ghost: #908060;
+  --text-void: #706848;
+  --border: #484038;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-void);
+  color: var(--text-high);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* Reaching animation */
+.reaching-text {
+  animation: reachFade 2.5s ease-in-out infinite;
+}
+@keyframes reachFade {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.8; }
+}
+
+/* Signal line */
+.signal-line {
+  width: 140px;
+  height: 1px;
+  position: relative;
+}
+.signal-line::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: signalPulse 2s ease-in-out infinite;
+}
+@keyframes signalPulse {
+  0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+  50% { opacity: 0.9; transform: scaleX(1.1); }
+}
+
+/* Connection dots */
+.connection-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+.connection-dot.reaching { animation-duration: 1.5s; }
+.connection-dot.lost { background: #4a2218; animation: none; opacity: 0.3; }
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Glitch text effect */
+.glitch-active {
+  text-shadow: 1.5px 0 rgba(196,162,101,0.15), -0.5px 0 rgba(138,110,58,0.1);
+}
+
+/* Waveform bar animation */
+.waveform-bar {
+  animation: waveStutter 1.8s ease-in-out infinite;
+}
+@keyframes waveStutter {
+  0%, 100% { transform: scaleY(1); opacity: 0.5; }
+  25% { transform: scaleY(1.6); opacity: 0.9; }
+  50% { transform: scaleY(0.3); opacity: 0.2; }
+  55% { transform: scaleY(1.8); opacity: 1; }
+  75% { transform: scaleY(1.2); opacity: 0.7; }
+}
+
+/* Scanlines (subtle CRT effect) */
+.scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(196,162,101,0.008) 3px,
+    rgba(196,162,101,0.008) 4px
+  );
+  animation: scanShift 0.5s steps(3) infinite;
+}
+@keyframes scanShift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Signal lost overlay */
+.signal-lost-overlay {
+  animation: signalLostFade 1s ease-in;
+}
+@keyframes signalLostFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Message appear animation */
+.message-appear {
+  animation: messageIn 0.6s ease-out;
+}
+@keyframes messageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Farewell fade */
+.farewell-fade {
+  animation: farewellOut 3s ease-out forwards;
+}
+@keyframes farewellOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; background: #000; }
+}
+
+/* Mobile viewport fix */
+html, body {
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+/* Hide scrollbar but allow scrolling */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }

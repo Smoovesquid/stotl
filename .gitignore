@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# tauri build artifacts
+/src-tauri/target/
+
+# claude code
+.claude/
