@@ -554,14 +554,21 @@ function PersonaScreen({ onSelect }: { onSelect: (persona: Persona) => void }) {
           </div>
         </div>
 
-        {/* Settings link */}
-        <div className="text-center mt-8">
+        {/* Footer links */}
+        <div className="flex justify-center gap-6 mt-8">
+          <a
+            href="/how-it-works"
+            className="text-[11px] tracking-[1px] font-sans transition-colors hover:text-[var(--gold)]"
+            style={{ color: 'var(--text-ghost)' }}
+          >
+            How it works
+          </a>
           <a
             href="/setup"
             className="text-[11px] tracking-[1px] font-sans transition-colors hover:text-[var(--gold)]"
             style={{ color: 'var(--text-ghost)' }}
           >
-            Settings (API keys, voice, model)
+            Settings
           </a>
         </div>
       </div>
