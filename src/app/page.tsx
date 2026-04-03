@@ -6,7 +6,7 @@ import { ReachingScreen, ConnectionIndicator, GlitchText, Waveform, Scanlines, S
 import { MicButton } from '@/components/mic-button';
 import { startAmbientHum, stopAmbientHum, setAmbientLevel, resumeAudio } from '@/lib/audio';
 import { getConfig, isConfigured, saveConfig } from '@/lib/config';
-import { chatWithAristotle, speakTextElevenLabs } from '@/lib/api-client';
+import { chat, speakTextElevenLabs } from '@/lib/api-client';
 import { PERSONA_LIST, getPersona, type Persona } from '@/lib/personas';
 
 interface Message {
@@ -158,7 +158,7 @@ export default function Home() {
       ? `[Returning. Their pact with you: "${chosenPact}". Reference it naturally. Open with a provocative continuation of your ongoing work together.]`
       : currentPersona.openingContext.replace('${pact}', chosenPact);
 
-    chatWithAristotle([{ role: 'user', content: pactContext }], !isReturning)
+    chat([{ role: 'user', content: pactContext }], !isReturning)
       .then(text => {
         setMessages([{ role: 'aristotle', content: text, isNew: true }]);
         setIsThinking(false);
@@ -226,7 +226,7 @@ export default function Home() {
 
     try {
       const claudeMessages = updated.map(m => ({ role: m.role === 'aristotle' ? 'assistant' : 'user', content: m.content }));
-      const response = await chatWithAristotle(claudeMessages, false);
+      const response = await chat(claudeMessages, false);
 
       const newMessages = [...updated, { role: 'aristotle' as const, content: response, isNew: true }];
       setMessages(newMessages);

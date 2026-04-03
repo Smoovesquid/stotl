@@ -1,6 +1,18 @@
 import { ARISTOTLE_SYSTEM_PROMPT } from '../aristotle-prompt';
 import { JESUS_SYSTEM_PROMPT } from './jesus';
 import { MARX_SYSTEM_PROMPT } from './marx';
+import { PLATO_SYSTEM_PROMPT } from './plato';
+import { ARISTOTLE_TOPICS } from './topics/aristotle-topics';
+import { PLATO_TOPICS } from './topics/plato-topics';
+
+export interface Topic {
+  id: string;
+  title: string;
+  description: string;
+  sourceText: string;
+  teachingPrompt: string;
+  examinationPrompt: string;
+}
 
 export interface Persona {
   id: string;
@@ -13,6 +25,7 @@ export interface Persona {
   pactOptions: { title: string; description: string }[];
   preferredModel?: string;
   hidden?: boolean;
+  topics?: Topic[];
 }
 
 export const PERSONAS: Record<string, Persona> = {
@@ -31,6 +44,7 @@ export const PERSONAS: Record<string, Persona> = {
       { title: 'Find meaning and purpose', description: 'Eudaimonia, the good life, what makes a life worth living.' },
       { title: 'Understand others', description: 'Friendship, politics, persuasion. How humans work together and fail to.' },
     ],
+    topics: ARISTOTLE_TOPICS,
   },
   jesus: {
     id: 'jesus',
@@ -63,6 +77,23 @@ export const PERSONAS: Record<string, Persona> = {
       { title: 'Understand history', description: 'How did we get here? What forces shape societies? What comes next?' },
       { title: 'Argue with you', description: 'I think you were wrong. Convince me otherwise.' },
     ],
+  },
+  plato: {
+    id: 'plato',
+    name: 'Plato',
+    years: 'c. 428–348 BC',
+    description: 'Philosopher, founder of the Academy, student of Socrates. Dismantles what you think you know.',
+    signalStrength: 'ancient',
+    systemPrompt: PLATO_SYSTEM_PROMPT,
+    openingContext: '[A new student approaches. They seek your guidance for this purpose: "${pact}". Consider their purpose. Accept it, reframe it, or challenge it. Then begin.]',
+    pactOptions: [
+      { title: 'Understand what is real', description: 'Appearance vs. reality, the Forms, the cave. What can I actually know?' },
+      { title: 'Live more justly', description: 'What is justice? Is it worth pursuing even when no one is watching?' },
+      { title: 'Examine my beliefs', description: 'I want someone to dismantle what I think I know and see what survives.' },
+      { title: 'Understand love', description: 'Eros, beauty, desire. What am I really seeking when I seek another person?' },
+      { title: 'Think about the ideal society', description: 'What would a truly just community look like? Who should lead and why?' },
+    ],
+    topics: PLATO_TOPICS,
   },
 };
 
