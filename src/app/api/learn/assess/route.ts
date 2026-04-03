@@ -42,7 +42,25 @@ YOU MUST respond with valid JSON in exactly this format:
 Respond ONLY with the JSON object. No markdown, no code fences, no extra text.`;
 
 export async function POST(req: NextRequest) {
-  const { transcript, philosopherId, topicId, selfAssessmentScore } = await req.json();
+  const body = await req.json();
+  const { philosopherId, topicId, selfAssessmentScore } = body;
+
+  // Accept either a transcript string or messages array
+  let transcript: string;
+  if (body.transcript) {
+    transcript = body.transcript;
+  } else if (body.messages && Array.isArray(body.messages)) {
+    transcript = body.messages
+      .map((m: { role: string; content: string }) =>
+        `${m.role === 'assistant' ? 'Philosopher' : 'Student'}: ${m.content}`
+      )
+      .join('\n\n');
+  } else {
+    return NextResponse.json(
+      { error: 'Missing required field: transcript or messages' },
+      { status: 400 }
+    );
+  }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
@@ -52,9 +70,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (!transcript || !philosopherId || !topicId) {
+  if (!philosopherId || !topicId) {
     return NextResponse.json(
-      { error: 'Missing required fields: transcript, philosopherId, topicId' },
+      { error: 'Missing required fields: philosopherId, topicId' },
       { status: 400 }
     );
   }

@@ -127,13 +127,14 @@ function LearnPageInner() {
         if (!res.ok) throw new Error('Chat API error');
 
         const data = await res.json();
+        const text = data.response || data.content || '...the philosopher is lost in thought.';
         const philosopherMsg: ChatMessage = {
           role: 'philosopher',
-          content: data.content,
+          content: text,
         };
 
         setMessages((prev) => [...prev, philosopherMsg]);
-        await addLearnMessage(sessionId, 'philosopher', data.content, currentPhase);
+        await addLearnMessage(sessionId, 'philosopher', text, currentPhase);
 
         // Track turns
         if (currentPhase === 'learning') {
@@ -194,11 +195,11 @@ function LearnPageInner() {
 
         const data = await res.json();
         setAssessmentLetter(data.letter);
-        setVerdictBadge(data.verdict);
-        setPhilosopherRating(data.rating);
+        setVerdictBadge(data.verdictBadge);
+        setPhilosopherRating(data.philosopherRating);
 
         // Persist to DB
-        await saveAssessment(sid, data.letter, data.verdict, data.rating);
+        await saveAssessment(sid, data.letter, data.verdictBadge, data.philosopherRating);
       } catch (err) {
         console.error('Assessment error:', err);
         setAssessmentLetter(
