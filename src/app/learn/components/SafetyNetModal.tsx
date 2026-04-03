@@ -16,21 +16,20 @@ export default function SafetyNetModal({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-6"
-      style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+      style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
     >
       <div
-        className="rounded-xl p-8 w-full shadow-lg"
+        className="rounded p-8 w-full"
         style={{
           maxWidth: '420px',
-          backgroundColor: '#faf8f4',
-          border: '1px solid #e0d8c8',
-          fontFamily: 'system-ui',
-          fontSize: '13px',
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border)',
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
         }}
       >
-        <p className="text-sm leading-relaxed mb-6" style={{ color: '#4a3f2f' }}>
+        <p className="text-[15px] italic font-light leading-relaxed mb-8" style={{ color: 'var(--text-mid)' }}>
           You've only heard{' '}
-          <span className="font-semibold" style={{ color: '#9f7a43' }}>
+          <span className="font-semibold" style={{ color: 'var(--gold)' }}>
             {teachingTurns}
           </span>{' '}
           of {philosopherName}'s opening thoughts.
@@ -42,21 +41,22 @@ export default function SafetyNetModal({
         <div className="flex flex-col gap-3">
           <button
             onClick={onContinueLearning}
-            className="w-full py-3 px-4 rounded-lg text-sm font-medium cursor-pointer transition-colors"
+            className="w-full py-3 px-4 rounded text-[12px] tracking-[2px] uppercase font-sans cursor-pointer transition-all"
             style={{
-              backgroundColor: '#9f7a43',
-              color: '#fff',
+              backgroundColor: 'rgba(212,168,75,0.12)',
+              color: 'var(--gold)',
+              border: '1px solid var(--gold)',
             }}
           >
             I need more time
           </button>
           <button
             onClick={onProceedAnyway}
-            className="w-full py-3 px-4 rounded-lg text-sm font-medium cursor-pointer transition-colors"
+            className="w-full py-3 px-4 rounded text-[12px] tracking-[2px] uppercase font-sans cursor-pointer transition-all"
             style={{
-              backgroundColor: '#fff',
-              color: '#4a3f2f',
-              border: '1px solid #e0d8c8',
+              backgroundColor: 'transparent',
+              color: 'var(--text-ghost)',
+              border: '1px solid var(--border)',
             }}
           >
             I'm ready anyway

@@ -17,63 +17,38 @@ export default function TopicSelector({ topics, philosopherName, onSelect }: Top
   return (
     <div
       className="min-h-screen flex items-center justify-center p-6"
-      style={{ backgroundColor: '#f8f8f8', fontFamily: 'system-ui', fontSize: '13px' }}
+      style={{ backgroundColor: 'var(--bg-void)', fontFamily: "'Cormorant Garamond', Georgia, serif" }}
     >
       <div className="w-full" style={{ maxWidth: '600px' }}>
-        <div className="text-center mb-8">
-          <h1 className="text-lg font-semibold mb-1" style={{ color: '#4a3f2f' }}>
-            Choose a topic
+        <div className="text-center mb-10">
+          <h1 className="text-[20px] italic font-light mb-2" style={{ color: 'var(--text-high)' }}>
+            "What shall we study?"
           </h1>
-          <p className="text-xs" style={{ color: '#7a6f5f' }}>
-            What would you like {philosopherName} to teach you?
+          <p className="text-[12px] font-sans" style={{ color: 'var(--text-ghost)' }}>
+            Choose what {philosopherName} will teach you.
           </p>
         </div>
 
-        <div
-          className="grid gap-4"
-          style={{
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          }}
-        >
+        <div className="space-y-3">
           {topics.map((topic) => (
             <button
               key={topic.id}
               onClick={() => onSelect(topic.id)}
-              className="text-left rounded-lg p-5 transition-all cursor-pointer group"
+              className="w-full text-left p-5 rounded border transition-all cursor-pointer hover:border-[var(--gold-dim)]"
               style={{
-                backgroundColor: '#fff',
-                border: '1px solid #e0d8c8',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#9f7a43';
-                e.currentTarget.style.backgroundColor = '#faf8f4';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#e0d8c8';
-                e.currentTarget.style.backgroundColor = '#fff';
+                backgroundColor: 'var(--bg-surface)',
+                borderColor: 'var(--border)',
               }}
             >
-              <h3
-                className="font-bold mb-1"
-                style={{ fontSize: '14px', color: '#4a3f2f' }}
-              >
+              <div className="text-[16px] mb-1" style={{ color: 'var(--text-high)' }}>
                 {topic.title}
-              </h3>
-              <p
-                className="mb-2 leading-relaxed"
-                style={{ fontSize: '12px', color: '#5a5045' }}
-              >
+              </div>
+              <div className="text-[14px] italic font-light mb-2" style={{ color: 'var(--text-low)' }}>
                 {topic.description}
-              </p>
-              <p
-                style={{
-                  fontSize: '11px',
-                  color: '#9f7a43',
-                  fontStyle: 'italic',
-                }}
-              >
+              </div>
+              <div className="text-[11px] font-sans" style={{ color: 'var(--gold-dim)' }}>
                 {topic.sourceText}
-              </p>
+              </div>
             </button>
           ))}
         </div>

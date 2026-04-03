@@ -39,7 +39,6 @@ export default function LearnChat({
     if (!trimmed || isThinking) return;
     onSendMessage(trimmed);
     setInput('');
-    // Reset textarea height
     if (inputRef.current) {
       inputRef.current.style.height = 'auto';
     }
@@ -54,7 +53,6 @@ export default function LearnChat({
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
-    // Auto-grow textarea
     const el = e.target;
     el.style.height = 'auto';
     el.style.height = Math.min(el.scrollHeight, 120) + 'px';
@@ -63,28 +61,28 @@ export default function LearnChat({
   return (
     <div
       className="min-h-screen flex flex-col"
-      style={{ backgroundColor: '#f8f8f8', fontFamily: 'system-ui' }}
+      style={{ backgroundColor: 'var(--bg-void)', fontFamily: "'Cormorant Garamond', Georgia, serif" }}
     >
       {/* Header bar */}
       <div
         className="sticky top-0 z-10 flex items-center justify-between px-4 py-3"
-        style={{ backgroundColor: '#f8f8f8', borderBottom: '1px solid #e0d8c8' }}
+        style={{ backgroundColor: 'var(--bg-void)', borderBottom: '1px solid var(--border)' }}
       >
-        <span className="text-sm font-medium" style={{ color: '#4a3f2f' }}>
+        <span className="text-[14px] italic font-light" style={{ color: 'var(--text-high)' }}>
           {philosopherName}
         </span>
         <div className="flex items-center gap-3">
           {phase === 'examination' && (
-            <span className="text-xs" style={{ color: '#7a6f5f' }}>
+            <span className="text-[11px] font-sans tracking-wide" style={{ color: 'var(--text-ghost)' }}>
               Question {Math.min(examTurn, 5)} of 5
             </span>
           )}
           <span
-            className="text-xs font-medium px-3 py-1 rounded-full"
+            className="text-[10px] tracking-[2px] uppercase font-sans px-3 py-1 rounded-full"
             style={
               phase === 'learning'
-                ? { backgroundColor: '#e8f5e9', color: '#2e7d32' }
-                : { backgroundColor: '#fff3e0', color: '#e65100' }
+                ? { backgroundColor: 'rgba(212,168,75,0.1)', color: 'var(--gold-dim)' }
+                : { backgroundColor: 'rgba(196,80,40,0.15)', color: '#e8a87c' }
             }
           >
             {phase === 'learning' ? 'Learning' : 'Examination'}
@@ -93,62 +91,35 @@ export default function LearnChat({
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-6" style={{ maxWidth: '900px', margin: '0 auto', width: '100%' }}>
-        <div className="flex flex-col gap-4">
+      <div className="flex-1 overflow-y-auto px-6 py-6" style={{ maxWidth: '700px', margin: '0 auto', width: '100%' }}>
+        <div className="flex flex-col gap-6">
           {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={`flex ${msg.role === 'student' ? 'justify-end' : 'justify-start'}`}
-            >
+            <div key={i} className={`${msg.role === 'student' ? 'text-right' : ''}`}>
+              <div className="text-[9px] tracking-[2px] uppercase mb-1.5 font-sans"
+                style={{ color: msg.role === 'philosopher' ? 'var(--gold-dim)' : 'var(--text-ghost)' }}>
+                {msg.role === 'philosopher' ? philosopherName : 'You'}
+              </div>
               <div
-                className="rounded-lg px-4 py-3 whitespace-pre-wrap"
+                className={`text-[17px] leading-[1.7] ${msg.role === 'philosopher' ? 'italic font-light' : ''}`}
                 style={{
-                  maxWidth: '80%',
-                  ...(msg.role === 'philosopher'
-                    ? {
-                        backgroundColor: '#f0ebe0',
-                        border: '1px solid #e0d8c8',
-                        color: '#4a3f2f',
-                      }
-                    : {
-                        backgroundColor: '#e8eef4',
-                        border: '1px solid #d0dce8',
-                        color: '#2a3f55',
-                      }),
+                  color: msg.role === 'philosopher' ? 'var(--text-high)' : 'var(--text-mid)',
                 }}
               >
-                <p className="text-xs font-medium mb-1" style={{ opacity: 0.6 }}>
-                  {msg.role === 'philosopher' ? philosopherName : 'You'}
-                </p>
-                <div style={{ fontSize: '15px', lineHeight: '1.6' }}>
-                  {msg.content}
-                </div>
+                {msg.content}
               </div>
             </div>
           ))}
 
           {/* Thinking indicator */}
           {isThinking && (
-            <div className="flex justify-start">
-              <div
-                className="rounded-lg px-4 py-3"
-                style={{
-                  backgroundColor: '#f0ebe0',
-                  border: '1px solid #e0d8c8',
-                  color: '#4a3f2f',
-                }}
-              >
-                <p className="text-xs font-medium mb-1" style={{ opacity: 0.6 }}>
-                  {philosopherName}
-                </p>
-                <span style={{ fontSize: '15px' }}>
-                  Thinking<span className="thinking-dots">
-                    <span className="dot dot1">.</span>
-                    <span className="dot dot2">.</span>
-                    <span className="dot dot3">.</span>
-                  </span>
-                </span>
+            <div>
+              <div className="text-[9px] tracking-[2px] uppercase mb-1.5 font-sans"
+                style={{ color: 'var(--gold-dim)' }}>
+                {philosopherName}
               </div>
+              <span className="text-[15px] italic" style={{ color: 'var(--text-ghost)' }}>
+                <span className="reaching-text">Reaching...</span>
+              </span>
             </div>
           )}
 
@@ -158,21 +129,21 @@ export default function LearnChat({
 
       {/* Input area */}
       <div
-        className="sticky bottom-0 px-4 py-3"
-        style={{ backgroundColor: '#f8f8f8', borderTop: '1px solid #e0d8c8' }}
+        className="sticky bottom-0 px-6 py-4"
+        style={{ backgroundColor: 'var(--bg-void)', borderTop: '1px solid var(--border)' }}
       >
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
           {phase === 'learning' && (
-            <div className="mb-2 text-right">
+            <div className="mb-3 text-right">
               <button
                 onClick={onReadyForExam}
                 disabled={isThinking}
-                className="text-xs font-medium px-4 py-2 rounded-full cursor-pointer transition-opacity"
+                className="text-[10px] tracking-[2px] uppercase font-sans px-4 py-2 rounded-full cursor-pointer transition-all"
                 style={{
-                  backgroundColor: '#fff3e0',
-                  color: '#9f7a43',
-                  border: '1px solid #e0d8c8',
-                  opacity: isThinking ? 0.4 : 1,
+                  backgroundColor: 'rgba(212,168,75,0.08)',
+                  color: 'var(--gold-dim)',
+                  border: '1px solid var(--border)',
+                  opacity: isThinking ? 0.3 : 1,
                 }}
               >
                 I'm ready to be examined
@@ -187,50 +158,31 @@ export default function LearnChat({
               onKeyDown={handleKeyDown}
               placeholder={
                 phase === 'learning'
-                  ? 'Ask a question or share your thoughts...'
+                  ? `Speak to ${philosopherName}...`
                   : 'Answer the question...'
               }
               rows={1}
               disabled={isThinking}
-              className="flex-1 resize-none rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9f7a43]/30"
+              className="flex-1 resize-none rounded px-4 py-3 text-[16px] italic focus:outline-none focus:border-[var(--gold-dim)]"
               style={{
-                backgroundColor: '#fff',
-                border: '1px solid #e0d8c8',
-                color: '#4a3f2f',
-                fontSize: '13px',
-                fontFamily: 'system-ui',
-                opacity: isThinking ? 0.5 : 1,
+                backgroundColor: 'var(--bg-surface)',
+                border: '1px solid var(--border)',
+                color: 'var(--text-high)',
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                opacity: isThinking ? 0.3 : 1,
               }}
             />
             <button
               onClick={handleSend}
               disabled={isThinking || !input.trim()}
-              className="rounded-lg px-4 py-3 text-sm font-medium cursor-pointer transition-opacity"
-              style={{
-                backgroundColor: '#9f7a43',
-                color: '#fff',
-                opacity: isThinking || !input.trim() ? 0.4 : 1,
-              }}
+              className="px-5 py-3 text-[12px] tracking-[2px] uppercase font-sans rounded border disabled:opacity-20 transition-opacity"
+              style={{ borderColor: 'var(--gold)', color: 'var(--gold)', backgroundColor: 'rgba(212,168,75,0.12)' }}
             >
               Send
             </button>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .thinking-dots .dot {
-          animation: blink 1.4s infinite both;
-        }
-        .thinking-dots .dot1 { animation-delay: 0s; }
-        .thinking-dots .dot2 { animation-delay: 0.2s; }
-        .thinking-dots .dot3 { animation-delay: 0.4s; }
-        @keyframes blink {
-          0%, 20% { opacity: 0; }
-          50% { opacity: 1; }
-          100% { opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 }
