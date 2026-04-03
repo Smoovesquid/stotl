@@ -25,6 +25,7 @@ export interface Persona {
   openingContext: string;
   pactOptions: { title: string; description: string }[];
   preferredModel?: string;
+  voiceId?: string;
   hidden?: boolean;
   topics?: Topic[];
 }
