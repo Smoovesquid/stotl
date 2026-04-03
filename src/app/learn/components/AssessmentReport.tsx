@@ -9,11 +9,11 @@ interface AssessmentReportProps {
   isLoading: boolean;
 }
 
-const VERDICT_STYLES: Record<string, { bg: string; color: string }> = {
-  Understood: { bg: '#e8f5e9', color: '#2e7d32' },
-  Promising: { bg: '#e3f2fd', color: '#1565c0' },
-  Partial: { bg: '#fff3e0', color: '#e65100' },
-  'Not Yet': { bg: '#ffebee', color: '#c62828' },
+const VERDICT_STYLES: Record<string, { border: string; color: string }> = {
+  Understood: { border: 'rgba(46,125,50,0.4)', color: '#81c784' },
+  Promising: { border: 'rgba(21,101,192,0.4)', color: '#64b5f6' },
+  Partial: { border: 'rgba(212,168,75,0.4)', color: 'var(--gold)' },
+  'Not Yet': { border: 'rgba(198,40,40,0.4)', color: '#ef9a9a' },
 };
 
 const SCORE_LABELS: Record<number, string> = {
@@ -36,40 +36,16 @@ export default function AssessmentReport({
     return (
       <div
         className="min-h-screen flex items-center justify-center p-6"
-        style={{ backgroundColor: '#f8f8f8', fontFamily: 'system-ui', fontSize: '13px' }}
+        style={{ backgroundColor: 'var(--bg-void)', fontFamily: "'Cormorant Garamond', Georgia, serif" }}
       >
         <div className="text-center">
-          <p className="text-sm mb-3" style={{ color: '#4a3f2f' }}>
+          <p className="text-[16px] italic font-light mb-4" style={{ color: 'var(--text-mid)' }}>
             {philosopherName} is writing your assessment...
           </p>
-          <div className="assessment-loading-bar mx-auto" />
+          <div className="reaching-text text-[10px] tracking-[3px] uppercase font-sans" style={{ color: 'var(--text-ghost)' }}>
+            Reaching...
+          </div>
         </div>
-
-        <style jsx>{`
-          .assessment-loading-bar {
-            width: 120px;
-            height: 2px;
-            background: #e0d8c8;
-            border-radius: 2px;
-            overflow: hidden;
-            position: relative;
-          }
-          .assessment-loading-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -40px;
-            width: 40px;
-            height: 100%;
-            background: #9f7a43;
-            border-radius: 2px;
-            animation: loading-slide 1.2s ease-in-out infinite;
-          }
-          @keyframes loading-slide {
-            0% { left: -40px; }
-            100% { left: 120px; }
-          }
-        `}</style>
       </div>
     );
   }
@@ -79,32 +55,32 @@ export default function AssessmentReport({
   return (
     <div
       className="min-h-screen flex items-center justify-center p-6"
-      style={{ backgroundColor: '#f8f8f8', fontFamily: 'system-ui', fontSize: '13px' }}
+      style={{ backgroundColor: 'var(--bg-void)', fontFamily: "'Cormorant Garamond', Georgia, serif" }}
     >
       <div className="w-full" style={{ maxWidth: '600px' }}>
         {/* Verdict badge */}
         {verdictBadge && (
-          <div className="text-center mb-6">
+          <div className="text-center mb-8">
             <span
-              className="inline-block text-sm font-semibold px-5 py-2 rounded-full"
-              style={{ backgroundColor: verdictStyle.bg, color: verdictStyle.color }}
+              className="inline-block text-[12px] tracking-[2px] uppercase font-sans px-5 py-2 rounded-full"
+              style={{ border: `1px solid ${verdictStyle.border}`, color: verdictStyle.color }}
             >
               {verdictBadge}
             </span>
           </div>
         )}
 
-        {/* Assessment letter card */}
+        {/* Assessment letter */}
         <div
-          className="rounded-xl p-8 mb-6"
+          className="rounded p-8 mb-6"
           style={{
-            backgroundColor: '#faf8f4',
-            border: '1px solid #e0d8c8',
+            backgroundColor: 'var(--bg-surface)',
+            border: '1px solid var(--border)',
           }}
         >
           <div
-            className="whitespace-pre-wrap leading-relaxed"
-            style={{ color: '#4a3f2f', fontSize: '15px', lineHeight: '1.6' }}
+            className="whitespace-pre-wrap italic font-light leading-[1.8]"
+            style={{ color: 'var(--text-high)', fontSize: '17px' }}
           >
             {letter}
           </div>
@@ -112,10 +88,10 @@ export default function AssessmentReport({
           {/* Philosopher signature */}
           <div className="mt-8 text-right">
             <p
-              className="font-medium"
-              style={{ color: '#9f7a43', fontStyle: 'italic', fontSize: '14px' }}
+              className="italic font-light"
+              style={{ color: 'var(--gold-dim)', fontSize: '16px' }}
             >
-              -- {philosopherName}
+              — {philosopherName}
             </p>
           </div>
         </div>
@@ -123,33 +99,33 @@ export default function AssessmentReport({
         {/* Metacognition gap */}
         {selfScore != null && philosopherRating != null && (
           <div
-            className="rounded-lg p-5 mb-6"
+            className="rounded p-6 mb-6"
             style={{
-              backgroundColor: '#fff',
-              border: '1px solid #e0d8c8',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border)',
             }}
           >
-            <p className="text-xs font-medium mb-3" style={{ color: '#7a6f5f' }}>
+            <p className="text-[10px] tracking-[2px] uppercase font-sans mb-4" style={{ color: 'var(--text-ghost)' }}>
               Metacognition
             </p>
             <div className="flex justify-between items-center">
               <div>
-                <p className="text-xs" style={{ color: '#7a6f5f' }}>You rated yourself</p>
-                <p className="text-sm font-semibold" style={{ color: '#2a3f55' }}>
-                  {selfScore}/5 ({SCORE_LABELS[selfScore] || ''})
+                <p className="text-[11px] font-sans" style={{ color: 'var(--text-ghost)' }}>You rated yourself</p>
+                <p className="text-[16px] italic font-light" style={{ color: 'var(--text-high)' }}>
+                  {selfScore}/5 <span className="text-[13px]" style={{ color: 'var(--text-low)' }}>({SCORE_LABELS[selfScore] || ''})</span>
                 </p>
               </div>
               <div
-                className="text-center px-3"
-                style={{ color: '#e0d8c8', fontSize: '20px' }}
+                className="text-center px-4 text-[16px] italic"
+                style={{ color: 'var(--text-void)' }}
               >
                 vs
               </div>
               <div className="text-right">
-                <p className="text-xs" style={{ color: '#7a6f5f' }}>
+                <p className="text-[11px] font-sans" style={{ color: 'var(--text-ghost)' }}>
                   {philosopherName} rated you
                 </p>
-                <p className="text-sm font-semibold" style={{ color: '#9f7a43' }}>
+                <p className="text-[16px] italic font-light" style={{ color: 'var(--gold)' }}>
                   {philosopherRating}/5
                 </p>
               </div>
@@ -158,7 +134,7 @@ export default function AssessmentReport({
         )}
 
         {/* Teacher note */}
-        <p className="text-center text-xs" style={{ color: '#7a6f5f' }}>
+        <p className="text-center text-[11px] font-sans" style={{ color: 'var(--text-ghost)' }}>
           Your teacher will see this assessment.
         </p>
       </div>
