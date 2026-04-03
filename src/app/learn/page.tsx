@@ -39,11 +39,82 @@ interface ChatMessage {
 }
 
 // Inner component that uses useSearchParams (needs Suspense boundary)
+// Landing page when no classId — role selection for teachers vs students
+function LearnLanding() {
+  return (
+    <div
+      className="min-h-screen flex items-center justify-center p-6"
+      style={{ backgroundColor: '#f8f8f8', fontFamily: 'system-ui' }}
+    >
+      <div className="w-full" style={{ maxWidth: '500px' }}>
+        <div className="text-center mb-10">
+          <h1 className="text-2xl font-semibold mb-2" style={{ color: '#4a3f2f' }}>
+            Learn from the Source
+          </h1>
+          <p className="text-sm" style={{ color: '#7a6f5f' }}>
+            Structured philosophy lessons with Socratic examination.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <a
+            href="/teacher/create"
+            className="block p-6 rounded-xl border-2 transition-all hover:border-[#9f7a43] hover:shadow-sm"
+            style={{ backgroundColor: '#fff', borderColor: '#e0d8c8' }}
+          >
+            <div className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#9f7a43' }}>
+              Teacher
+            </div>
+            <div className="font-semibold text-gray-900 mb-1">Create a class</div>
+            <div className="text-sm text-gray-500">
+              Choose a philosopher and topic, set a password, and share a link with your students.
+            </div>
+          </a>
+
+          <div
+            className="p-6 rounded-xl border-2"
+            style={{ backgroundColor: '#fff', borderColor: '#e0d8c8' }}
+          >
+            <div className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#9f7a43' }}>
+              Student
+            </div>
+            <div className="font-semibold text-gray-900 mb-1">Join with a link</div>
+            <div className="text-sm text-gray-500">
+              Your teacher will give you a link. Open it to start learning.
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center mt-8">
+          <a
+            href="/"
+            className="text-xs transition-colors hover:underline"
+            style={{ color: '#9f7a43' }}
+          >
+            Back to Stotl
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Router component that checks for classId before rendering the learn flow
 function LearnPageInner() {
   const searchParams = useSearchParams();
   const classId = searchParams.get('classId') || '';
+
+  if (!classId) {
+    return <LearnLanding />;
+  }
+
   const philosopherId = searchParams.get('philosopher') || 'aristotle';
   const urlTopic = searchParams.get('topic') || '';
+
+  return <LearnSession classId={classId} philosopherId={philosopherId} urlTopic={urlTopic} />;
+}
+
+function LearnSession({ classId, philosopherId, urlTopic }: { classId: string; philosopherId: string; urlTopic: string }) {
 
   const persona = getPersona(philosopherId);
 

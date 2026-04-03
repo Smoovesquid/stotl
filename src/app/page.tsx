@@ -536,6 +536,24 @@ function PersonaScreen({ onSelect }: { onSelect: (persona: Persona) => void }) {
           ))}
         </div>
 
+        {/* Learn from the Source */}
+        <div className="mt-10 mx-auto" style={{ maxWidth: '400px' }}>
+          <div className="border rounded p-4 transition-all hover:border-[var(--gold-dim)]"
+            style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-surface)' }}>
+            <a href="/learn" className="block">
+              <div className="text-[11px] tracking-[2px] uppercase font-sans mb-2" style={{ color: 'var(--gold-dim)' }}>
+                For classrooms
+              </div>
+              <div className="text-[16px]" style={{ color: 'var(--text-high)' }}>
+                Learn from the Source
+              </div>
+              <div className="text-[13px] italic mt-1" style={{ color: 'var(--text-low)' }}>
+                Structured lessons with Socratic examination. Teachers create classes, students get assessed.
+              </div>
+            </a>
+          </div>
+        </div>
+
         {/* Settings link */}
         <div className="text-center mt-8">
           <a
