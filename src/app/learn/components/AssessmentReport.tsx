@@ -104,7 +104,7 @@ export default function AssessmentReport({
         >
           <div
             className="whitespace-pre-wrap leading-relaxed"
-            style={{ color: '#4a3f2f', fontSize: '13px' }}
+            style={{ color: '#4a3f2f', fontSize: '15px', lineHeight: '1.6' }}
           >
             {letter}
           </div>
