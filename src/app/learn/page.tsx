@@ -347,9 +347,10 @@ function LearnPageInner() {
       if (!res.ok) throw new Error('Chat API error');
 
       const data = await res.json();
-      const msg: ChatMessage = { role: 'philosopher', content: data.content };
+      const text = data.response || data.content || '...the philosopher is lost in thought.';
+      const msg: ChatMessage = { role: 'philosopher', content: text };
       setMessages([msg]);
-      await addLearnMessage(sid, 'philosopher', data.content, 'learning');
+      await addLearnMessage(sid, 'philosopher', text, 'learning');
       setTeachingTurns(1);
       await incrementTeachingTurns(sid);
     } catch (err) {
@@ -404,10 +405,11 @@ function LearnPageInner() {
         if (!res.ok) throw new Error('Chat API error');
 
         const data = await res.json();
-        const msg: ChatMessage = { role: 'philosopher', content: data.content };
+        const text = data.response || data.content || '...the philosopher is lost in thought.';
+        const msg: ChatMessage = { role: 'philosopher', content: text };
         // Keep learning messages but start exam section
         setMessages((prev) => [...prev, msg]);
-        await addLearnMessage(sessionId, 'philosopher', data.content, 'examination');
+        await addLearnMessage(sessionId, 'philosopher', text, 'examination');
         setExamTurns(1);
         await incrementExamTurns(sessionId);
       } catch (err) {
