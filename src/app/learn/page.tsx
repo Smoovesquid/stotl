@@ -85,7 +85,14 @@ function LearnLanding() {
           </div>
         </div>
 
-        <div className="text-center mt-8">
+        <div className="flex justify-center gap-6 mt-8">
+          <a
+            href="/how-it-works"
+            className="text-xs transition-colors hover:underline"
+            style={{ color: '#9f7a43' }}
+          >
+            How it works
+          </a>
           <a
             href="/"
             className="text-xs transition-colors hover:underline"

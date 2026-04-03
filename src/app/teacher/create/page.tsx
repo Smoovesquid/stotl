@@ -166,8 +166,17 @@ export default function TeacherCreatePage() {
     <div className="min-h-screen" style={{ backgroundColor: '#f8f8f8', fontFamily: 'system-ui, sans-serif' }}>
       <div className="max-w-[900px] mx-auto px-6 py-12">
         <h1 className="text-2xl font-semibold text-gray-900 mb-1">Create a Class</h1>
-        <p className="text-gray-500 mb-10">
+        <p className="text-gray-500 mb-1">
           Choose a philosopher and topic, then share the link with your students.
+        </p>
+        <p className="mb-10">
+          <a
+            href="/how-it-works"
+            className="text-xs transition-colors hover:underline"
+            style={{ color: '#9f7a43' }}
+          >
+            How does this work?
+          </a>
         </p>
 
         {/* Step 1: Philosopher */}
