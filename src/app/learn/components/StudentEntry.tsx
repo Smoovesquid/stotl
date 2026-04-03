@@ -134,6 +134,13 @@ export default function StudentEntry({
           </div>
         )}
 
+        {/* Error display (shown in all modes) */}
+        {error && mode !== 'returning' && (
+          <p className="text-xs mb-3 text-center" style={{ color: '#c0392b' }}>
+            {error}
+          </p>
+        )}
+
         {/* Mode chooser */}
         {mode === 'choose' && (
           <div className="flex flex-col gap-3">
@@ -142,13 +149,15 @@ export default function StudentEntry({
                 setMode('new');
                 onNewStudent();
               }}
+              disabled={isLoading}
               className="w-full py-3 px-4 rounded-lg text-sm font-medium transition-colors cursor-pointer"
               style={{
                 backgroundColor: '#9f7a43',
                 color: '#fff',
+                opacity: isLoading ? 0.6 : 1,
               }}
             >
-              I'm a new student
+              {isLoading ? 'Setting up...' : "I'm a new student"}
             </button>
             <button
               onClick={() => setMode('returning')}
