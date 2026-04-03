@@ -169,14 +169,17 @@ async function callOpenAI(
 }
 
 // --- Voice (ElevenLabs or null for browser TTS) ---
-export async function speakTextElevenLabs(text: string): Promise<Blob | null> {
+export async function speakTextElevenLabs(text: string, voiceIdOverride?: string): Promise<Blob | null> {
   const config = getConfig();
-  if (!config || config.voiceProvider !== 'elevenlabs' || !config.elevenlabsKey || !config.elevenlabsVoiceId) {
+  if (!config || config.voiceProvider !== 'elevenlabs' || !config.elevenlabsKey) {
     return null; // caller falls back to browser TTS
   }
 
+  const voiceId = voiceIdOverride || config.elevenlabsVoiceId;
+  if (!voiceId) return null;
+
   const response = await fetch(
-    `https://api.elevenlabs.io/v1/text-to-speech/${config.elevenlabsVoiceId}`,
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
     {
       method: 'POST',
       headers: {

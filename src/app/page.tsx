@@ -84,8 +84,9 @@ export default function Home() {
 
     setIsSpeaking(true);
 
-    // Try ElevenLabs first, fall back to browser TTS
-    speakTextElevenLabs(text)
+    // Use persona-specific voice if available, fall back to global
+    const currentPersona = getPersona(getConfig()?.personaId || 'aristotle');
+    speakTextElevenLabs(text, currentPersona.voiceId)
       .then(blob => {
         if (!blob) throw new Error('No voice configured');
         return blob;
