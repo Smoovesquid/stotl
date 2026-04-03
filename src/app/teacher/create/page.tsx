@@ -21,10 +21,10 @@ const PHILOSOPHER_TOPICS: Record<string, Topic[]> = {
     { id: 'political-animals', title: 'Political Animals', description: 'Why humans are meant to live in communities. The purpose of the state.', sourceText: 'Politics, Book I' },
   ],
   plato: [
-    { id: 'allegory-cave', title: 'The Allegory of the Cave', description: 'Shadows, chains, and the blinding light of truth.', sourceText: 'Republic, Book VII' },
-    { id: 'theory-forms', title: 'Theory of Forms', description: 'The real world behind the world we see.', sourceText: 'Phaedo; Republic, Books V-VII' },
-    { id: 'just-city', title: 'The Just City', description: 'What would a perfectly just society look like?', sourceText: 'Republic, Books II-IV' },
-    { id: 'nature-of-love', title: 'The Nature of Love', description: 'Eros, beauty, and the ascent of the soul.', sourceText: 'Symposium' },
+    { id: 'the-cave', title: 'The Allegory of the Cave', description: 'Shadows, chains, and the blinding light of truth.', sourceText: 'Republic, Book VII' },
+    { id: 'forms', title: 'Theory of Forms', description: 'The real world behind the world we see.', sourceText: 'Phaedo; Republic, Books V-VII' },
+    { id: 'justice', title: 'The Just City', description: 'What would a perfectly just society look like?', sourceText: 'Republic, Books II-IV' },
+    { id: 'love', title: 'The Nature of Love', description: 'Eros, beauty, and the ascent of the soul.', sourceText: 'Symposium' },
   ],
 };
 
