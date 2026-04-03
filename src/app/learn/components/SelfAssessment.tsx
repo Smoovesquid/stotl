@@ -24,16 +24,15 @@ export default function SelfAssessment({ philosopherName, onRate }: SelfAssessme
           Before {philosopherName} examines you, rate your understanding:
         </p>
 
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="grid grid-cols-5 gap-2 max-w-[420px] mx-auto">
           {RATINGS.map(({ score, label }) => (
             <button
               key={score}
               onClick={() => onRate(score)}
-              className="flex flex-col items-center gap-1 px-4 py-3 rounded-lg cursor-pointer transition-all"
+              className="flex flex-col items-center gap-1 px-2 py-3 rounded-lg cursor-pointer transition-all"
               style={{
                 backgroundColor: '#fff',
                 border: '1px solid #e0d8c8',
-                minWidth: '80px',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = '#9f7a43';

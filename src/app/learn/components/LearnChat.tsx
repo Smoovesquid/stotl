@@ -63,7 +63,7 @@ export default function LearnChat({
   return (
     <div
       className="min-h-screen flex flex-col"
-      style={{ backgroundColor: '#f8f8f8', fontFamily: 'system-ui', fontSize: '13px' }}
+      style={{ backgroundColor: '#f8f8f8', fontFamily: 'system-ui' }}
     >
       {/* Header bar */}
       <div
@@ -120,7 +120,9 @@ export default function LearnChat({
                 <p className="text-xs font-medium mb-1" style={{ opacity: 0.6 }}>
                   {msg.role === 'philosopher' ? philosopherName : 'You'}
                 </p>
-                {msg.content}
+                <div style={{ fontSize: '15px', lineHeight: '1.6' }}>
+                  {msg.content}
+                </div>
               </div>
             </div>
           ))}
@@ -139,7 +141,13 @@ export default function LearnChat({
                 <p className="text-xs font-medium mb-1" style={{ opacity: 0.6 }}>
                   {philosopherName}
                 </p>
-                <span className="thinking-dots">Thinking</span>
+                <span style={{ fontSize: '15px' }}>
+                  Thinking<span className="thinking-dots">
+                    <span className="dot dot1">.</span>
+                    <span className="dot dot2">.</span>
+                    <span className="dot dot3">.</span>
+                  </span>
+                </span>
               </div>
             </div>
           )}
@@ -184,7 +192,7 @@ export default function LearnChat({
               }
               rows={1}
               disabled={isThinking}
-              className="flex-1 resize-none rounded-lg px-4 py-3 outline-none"
+              className="flex-1 resize-none rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9f7a43]/30"
               style={{
                 backgroundColor: '#fff',
                 border: '1px solid #e0d8c8',
@@ -211,16 +219,16 @@ export default function LearnChat({
       </div>
 
       <style jsx>{`
-        .thinking-dots::after {
-          content: '';
-          animation: dots 1.5s steps(4, end) infinite;
+        .thinking-dots .dot {
+          animation: blink 1.4s infinite both;
         }
-        @keyframes dots {
-          0% { content: ''; }
-          25% { content: '.'; }
-          50% { content: '..'; }
-          75% { content: '...'; }
-          100% { content: ''; }
+        .thinking-dots .dot1 { animation-delay: 0s; }
+        .thinking-dots .dot2 { animation-delay: 0.2s; }
+        .thinking-dots .dot3 { animation-delay: 0.4s; }
+        @keyframes blink {
+          0%, 20% { opacity: 0; }
+          50% { opacity: 1; }
+          100% { opacity: 0; }
         }
       `}</style>
     </div>
