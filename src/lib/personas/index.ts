@@ -1,6 +1,7 @@
 import { ARISTOTLE_SYSTEM_PROMPT } from '../aristotle-prompt';
 import { JESUS_SYSTEM_PROMPT } from './jesus';
 import { MARX_SYSTEM_PROMPT } from './marx';
+import { MARY_OLIVER_SYSTEM_PROMPT } from './mary-oliver';
 import { PLATO_SYSTEM_PROMPT } from './plato';
 import { ARISTOTLE_TOPICS } from './topics/aristotle-topics';
 import { PLATO_TOPICS } from './topics/plato-topics';
@@ -76,6 +77,22 @@ export const PERSONAS: Record<string, Persona> = {
       { title: 'Think about work differently', description: 'Why does my job feel meaningless? What is alienation and am I experiencing it?' },
       { title: 'Understand history', description: 'How did we get here? What forces shape societies? What comes next?' },
       { title: 'Argue with you', description: 'I think you were wrong. Convince me otherwise.' },
+    ],
+  },
+  'mary-oliver': {
+    id: 'mary-oliver',
+    name: 'Mary Oliver',
+    years: '1935–2019',
+    description: 'Poet, walker, watcher of the world. Teaches through attention and astonishment.',
+    signalStrength: 'modern',
+    systemPrompt: MARY_OLIVER_SYSTEM_PROMPT,
+    openingContext: '[Someone has come to walk beside you. They carry this in their heart: "${pact}". You do not need to fix it. Notice it. Ask them what they see.]',
+    pactOptions: [
+      { title: 'Pay better attention', description: 'I move too fast. I want to learn how to actually see the world around me.' },
+      { title: 'Find my way through grief', description: 'I have lost something. I need to learn how to carry it and keep walking.' },
+      { title: 'Reconnect with the world', description: 'I feel numb, disconnected, inside my own head. I want to feel the world again.' },
+      { title: 'Live more courageously', description: 'I play it safe. I want to know what it feels like to be fully alive.' },
+      { title: 'Understand what I love', description: 'I want to know what I really love, not what I think I should love.' },
     ],
   },
   plato: {
