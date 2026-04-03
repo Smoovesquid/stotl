@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getConfig, saveConfig, DEFAULT_CONFIG, OPENROUTER_MODELS, type StotlConfig, type BrainProvider, type VoiceProvider } from '@/lib/config';
-import { chatWithAristotle } from '@/lib/api-client';
+import { chat } from '@/lib/api-client';
 import { Scanlines } from '@/components/portal-ui';
 
 export default function SetupPage() {
@@ -28,7 +28,7 @@ export default function SetupPage() {
     // Temporarily save config so api-client can read it
     saveConfig(config);
     try {
-      const response = await chatWithAristotle(
+      const response = await chat(
         [{ role: 'user', content: 'Say "the signal holds" in exactly four words.' }],
         false
       );

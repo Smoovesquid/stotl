@@ -4,11 +4,12 @@
 import { getConfig } from './config';
 import { getPersona } from './personas';
 
-// System prompt is now read directly from the persona object in chatWithAristotle
+// System prompt can be overridden per-call (e.g., learn mode phases)
 
-export async function chatWithAristotle(
+export async function chat(
   messages: { role: string; content: string }[],
-  isFirstSession: boolean
+  isFirstSession: boolean,
+  systemPromptOverride?: string
 ): Promise<string> {
   const config = getConfig();
   if (!config) throw new Error('Not configured');
@@ -34,7 +35,7 @@ export async function chatWithAristotle(
   try {
     let result: string;
 
-    const sp = persona.systemPrompt;
+    const sp = systemPromptOverride || persona.systemPrompt;
 
     switch (forceOpenRouter ? 'openrouter' : config.brainProvider) {
       case 'openrouter':
